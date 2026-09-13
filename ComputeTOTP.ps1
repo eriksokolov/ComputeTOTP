@@ -1,7 +1,8 @@
 $s="JBSWY3DPEHPK3PXP";
 $a="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 $k=[byte[]]::new([math]::Floor(($s.Length*5)/8));
-$b="";$s.ToCharArray()|%{$b+=[Convert]::ToString($a.IndexOf($_),2).PadLeft(5,'0')};
+$b="";
+$s.ToCharArray()|%{$b+=[Convert]::ToString($a.IndexOf($_),2).PadLeft(5,'0')};
 0..($k.Length-1)|%{$k[$_]=[Convert]::ToByte($b.Substring($_*8,8),2)};
 $c=[BitConverter]::GetBytes([long]([math]::Floor([DateTimeOffset]::UtcNow.ToUnixTimeSeconds()/30)));
 if([BitConverter]::IsLittleEndian){[array]::Reverse($c)};
